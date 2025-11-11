@@ -26,10 +26,10 @@ const Navbar = () => {
                     </svg>
                 </div>
 
-                <div className="relative cursor-pointer">
-                    <svg width="18" height="18" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M.583.583h2.333l1.564 7.81a1.17 1.17 0 0 0 1.166.94h5.67a1.17 1.17 0 0 0 1.167-.94l.933-4.893H3.5m2.333 8.75a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0m6.417 0a.583.583 0 1 1-1.167 0 .583.583 0 0 1 1.167 0" stroke="#615fff" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                <div className="relative cursor-pointer" onClick={()=>{
+                  navigate('/cart')
+                }}>
+                   <img src={assets.cart_icon} alt="Not Found" className="w-6 h-6 text-[lch(67_100_66)]"/>
                     <button className="absolute -top-2 -right-3 text-xs text-white bg-[lch(67.0_100.45_66.48)] w-[18px] h-[18px] rounded-full">3</button>
                 </div>
 
@@ -39,9 +39,11 @@ const Navbar = () => {
     <img src={assets.profile_icon} alt="Not Found" className="w-10"/>
   <ul className="hidden group-hover:block absolute top-10 right-0 bg-white shadow-md rounded-md border border-gray-200 py-2 z-40 text-sm">
       <li className="p-1.5 cursor-pointer" onClick={()=>{
-        navigate('/profile')
+        navigate('/my-orders')
       }}>MyOrders</li>
-      <li className="p-1.5 cursor-pointer">Logout</li>
+      <li className="p-1.5 cursor-pointer" onClick={()=>{
+        setUser(null)
+      }}>Logout</li>
       </ul>
   </div>
   </>
@@ -66,9 +68,26 @@ const Navbar = () => {
             <div className={`${open ? 'flex' : 'hidden'} absolute top-[60px] left-0 w-full bg-white shadow-md py-4 flex-col items-start gap-2 px-5 text-sm md:hidden`}>
                <Link to={"/"}>Home</Link>
                 <Link to={"/products"}>All Products</Link>
-                <button className="cursor-pointer px-6 py-2 mt-2 bg-[lch(67.0_100.45_66.48)] hover:bg-[lch(60.0_100.45_66.48)] transition text-white rounded-full text-sm">
+              {user?(
+  <>
+  <div className="relative group">
+    <img src={assets.profile_icon} alt="Not Found" className="w-10"/>
+  <ul className="hidden group-hover:block absolute top-10 right-0 bg-white shadow-md rounded-md border border-gray-200 py-2 z-40 text-sm">
+      <li className="p-1.5 cursor-pointer" onClick={()=>{
+        navigate('/my-orders')
+      }}>MyOrders</li>
+      <li className="p-1.5 cursor-pointer" onClick={()=>{
+        setUser(null)
+      }}>Logout</li>
+      </ul>
+  </div>
+  </>
+):
+  <button className="cursor-pointer px-8 py-2 bg-[lch(67.0_100.45_66.48)] hover:bg-[lch(60.0_100.45_66.48)] transition text-white rounded-full">
                     Login
                 </button>
+}
+              
             </div>
 
         </nav>
